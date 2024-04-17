@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "Pomodoro Timer with Notifications and Persistent Task Saving",
+    "version": "1.0",
+    "description": "Set a custom timer for tasks, display notifications, save completed tasks, and manage a task list. Timer continues in the background.",
+    "permissions": ["notifications", "storage", "tabs"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
+  
