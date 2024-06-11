@@ -3,7 +3,6 @@ let timeRemaining = 0; // in seconds
 let currentTask = '';
 
 function startTimer(duration, taskName) {
-    clearInterval(timerInterval); // Clear existing interval if any
     timeRemaining = duration * 60; // Convert minutes to seconds
     currentTask = taskName;
     timerInterval = setInterval(() => {
@@ -15,7 +14,7 @@ function startTimer(duration, taskName) {
                 message: `Time to take a break! Task "${currentTask}" completed.`,
                 priority: 2
             });
-            saveTask(currentTask);
+            saveTask(currentTask, duration);
             currentTask = '';
             chrome.action.setBadgeText({ text: '' }); // Clear badge text
         } else {
@@ -31,10 +30,11 @@ function updateBadge() {
     chrome.action.setBadgeText({ text: `${minutes}` });
 }
 
-function saveTask(taskName) {
+function saveTask(name, duration) {
     chrome.storage.sync.get({tasks: []}, function(data) {
         const tasks = data.tasks;
-        tasks.push(taskName);
+        const task = {name: name, duration: duration};
+        tasks.push(task);
         chrome.storage.sync.set({tasks: tasks});
     });
 }

@@ -12,7 +12,7 @@ function loadTasks() {
         jobList.innerHTML = ''; // Clear existing list first
         data.tasks.forEach((task, index) => {
             const listItem = document.createElement('li');
-            listItem.textContent = task;
+            listItem.textContent = task.name + ' (' + task.duration + ' minutes)';
 
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'Delete';
@@ -46,4 +46,19 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('timerDisplay').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
         });
     }, 1000);
+});
+
+document.getElementById('playMusic').addEventListener('click', function() {
+    const player = document.getElementById('musicPlayer');
+    player.play();
+    document.getElementById('playMusic').disabled = true;
+    document.getElementById('stopMusic').disabled = false;
+});
+
+document.getElementById('stopMusic').addEventListener('click', function() {
+    const player = document.getElementById('musicPlayer');
+    player.pause();
+    player.currentTime = 0; // Optionally reset the track to the start
+    document.getElementById('playMusic').disabled = false;
+    document.getElementById('stopMusic').disabled = true;
 });
